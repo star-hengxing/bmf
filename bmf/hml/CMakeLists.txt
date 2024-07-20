@@ -68,6 +68,8 @@ configure_file(
     "${PROJECT_SOURCE_DIR}/cmake/hml-config.cmake.in"
     "${PROJECT_SOURCE_DIR}/cmake/hml-config.cmake" @ONLY)
 
+install(FILES "${PROJECT_SOURCE_DIR}/cmake/hml-config.cmake" DESTINATION lib/cmake)
+
 add_subdirectory(src)
 if(HMP_ENABLE_PYTHON)
     add_subdirectory(py)

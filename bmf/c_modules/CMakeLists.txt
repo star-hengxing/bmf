@@ -95,6 +95,7 @@ if(BMF_ENABLE_FFMPEG)
     install(TARGETS builtin_modules
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
     )
 
     install(FILES ${HDRS} DESTINATION include)

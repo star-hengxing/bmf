@@ -140,4 +140,12 @@ if(NOT "${CMAKE_SYSTEM_NAME}" MATCHES "Android|iOS|Darwin")
     )
 endif()
 
-add_subdirectory(tests)
+install(TARGETS hmp
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
+
+if (BMF_ENABLE_TEST)
+    add_subdirectory(tests)
+endif()

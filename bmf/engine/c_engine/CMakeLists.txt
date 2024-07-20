@@ -119,4 +119,5 @@ endif()
 install(TARGETS engine
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
 )

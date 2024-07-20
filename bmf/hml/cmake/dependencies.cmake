@@ -64,10 +64,10 @@ if(HMP_ENABLE_TORCH)
 endif()
 
 ##### optional(remove it when nvcc support c++17)
-add_library(optional INTERFACE)   
-set_target_properties(optional PROPERTIES
-        INTERFACE_INCLUDE_DIRECTORIES ${PROJECT_SOURCE_DIR}/third_party/optional/include)
-list(APPEND HMP_CORE_PUB_DEPS optional)
+# add_library(optional INTERFACE)   
+# set_target_properties(optional PROPERTIES
+#         INTERFACE_INCLUDE_DIRECTORIES ${PROJECT_SOURCE_DIR}/third_party/optional/include)
+# list(APPEND HMP_CORE_PUB_DEPS optional)
 
 
 #### spdlog
@@ -161,26 +161,30 @@ endif()
 
 
 ##### GTest
-if (HMP_LOCAL_DEPENDENCIES)
-    if(WIN32)
-        set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+if (BMF_ENABLE_TEST)
+    if (HMP_LOCAL_DEPENDENCIES)
+        if(WIN32)
+            set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+        endif()
+        add_subdirectory(third_party/gtest)
+    else ()
+        find_package(GTest REQUIRED)
+        add_library(gtest ALIAS GTest::gtest)
+        add_library(gtest_main ALIAS GTest::gtest_main)
     endif()
-    add_subdirectory(third_party/gtest)
-else ()
-    find_package(GTest REQUIRED)
-    add_library(gtest ALIAS GTest::gtest)
-    add_library(gtest_main ALIAS GTest::gtest_main)
 endif()
 
 
 ##### Benchmark
-if (HMP_LOCAL_DEPENDENCIES)
-    set(BENCHMARK_ENABLE_TESTING OFF)
-    set(BENCHMARK_ENABLE_INSTALL OFF)
-    set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
-    add_subdirectory(third_party/benchmark)
-else ()
-    find_package(benchmark REQUIRED)
+if (HMP_ENABLE_MOBILE)
+    if (HMP_LOCAL_DEPENDENCIES)
+        set(BENCHMARK_ENABLE_TESTING OFF)
+        set(BENCHMARK_ENABLE_INSTALL OFF)
+        set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
+        add_subdirectory(third_party/benchmark)
+    else ()
+        find_package(benchmark REQUIRED)
+    endif()
 endif()
 
 

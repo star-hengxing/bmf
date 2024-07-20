@@ -14,7 +14,7 @@ if(BMF_ENABLE_PYTHON)
     endif()
 endif()
 
-if (NOT BMF_LOCAL_DEPENDENCIES)
+if (NOT BMF_LOCAL_DEPENDENCIES AND BMF_ENABLE_PYTHON)
     find_package(pybind11 REQUIRED)
 endif()
 

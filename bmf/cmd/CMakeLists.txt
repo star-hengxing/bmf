@@ -45,7 +45,7 @@ target_link_libraries(module_manager
 install(TARGETS run_bmf_graph trace_format_log module_manager
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
-    BUNDLE DESTINATION ${CMAKE_INSTALL_BINDIR}
+    ARCHIVE DESTINATION lib
 )
 
 # Tool suite
@@ -73,6 +73,7 @@ if(CURSES_NCURSESW_FOUND)
     install(TARGETS bmf_suite
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
     )
 else()
     message("Skipping BMF tool suite compilation as ncursesw is not detected")

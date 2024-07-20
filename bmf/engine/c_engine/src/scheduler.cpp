@@ -21,8 +21,6 @@
 
 #include <bmf/sdk/trace.h>
 
-#include <unistd.h>
-
 BEGIN_BMF_ENGINE_NS
 USE_BMF_SDK_NS
 
@@ -309,7 +307,7 @@ int Scheduler::alive_watch() {
                     break;
                 }
             }
-            usleep(100000);
+            std::this_thread::sleep_for(std::chrono::microseconds(100000));
         } else
             break;
     }

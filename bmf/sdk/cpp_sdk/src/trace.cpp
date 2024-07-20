@@ -16,7 +16,6 @@
 
 #include <bmf/sdk/trace.h>
 
-#include <unistd.h>
 #include <nlohmann/json.hpp>
 
 BEGIN_BMF_SDK_NS
@@ -96,7 +95,7 @@ TraceLogger::TraceLogger(int queue_size, bool loop_mode)
     thread_name_ = tss.str();
 
     // Set the process name
-    pid_t pid = getpid();
+    auto pid = getpid();
     std::stringstream pss;
     pss << pid;
     process_name_ = pss.str();
@@ -195,7 +194,7 @@ void TraceLogger::loop() {
     // Start execute logging
     while (!thread_quit_) {
         process_queues();
-        usleep(1);
+        std::this_thread::sleep_for(std::chrono::microseconds(1));
     }
 
     // Perform a final clear of pending events to process
@@ -223,7 +222,7 @@ ThreadTrace::ThreadTrace() {
         thread_name_ = tss.str();
 
         // Set the process name
-        pid_t pid = getpid();
+        auto pid = getpid();
         std::stringstream pss;
         pss << pid;
         process_name_ = pss.str();

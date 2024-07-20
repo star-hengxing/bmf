@@ -33,7 +33,7 @@ namespace fs = std::filesystem;
 #else // CUSTOM_FILESYSTEM
 
 #include <string>
-#include <unistd.h>
+
 #include <sys/stat.h>
 
 namespace fs {

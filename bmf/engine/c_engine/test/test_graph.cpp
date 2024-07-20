@@ -21,8 +21,6 @@
 
 #include <fstream>
 
-#include <unistd.h>
-
 USE_BMF_ENGINE_NS
 USE_BMF_SDK_NS
 TEST(graph, start) {
@@ -131,7 +129,7 @@ TEST(graph, dynamic_add) {
     std::cout << "init graph success" << std::endl;
 
     graph->start();
-    usleep(400000);
+    std::this_thread::sleep_for(std::chrono::microseconds(400000));
 
     std::cout << "graph dynamic add nodes" << std::endl;
     graph->update(dyn_config);
@@ -158,15 +156,15 @@ TEST(graph, dynamic_remove) {
     std::cout << "init graph success" << std::endl;
 
     graph->start();
-    usleep(10000);
+    std::this_thread::sleep_for(std::chrono::microseconds(10000));
 
     std::cout << "graph dynamic add nodes" << std::endl;
     graph->update(dyn_add_config);
-    usleep(10000);
+    std::this_thread::sleep_for(std::chrono::microseconds(10000));
 
     std::cout << "graph dynamic remove nodes" << std::endl;
     graph->update(dyn_remove_config);
-    sleep(2);
+    std::this_thread::sleep_for(std::chrono::milliseconds(2));
 
     graph->force_close(); // here only the pass_through_module lefted
     time_t time2 = clock();

@@ -15,8 +15,6 @@
  */
 #include "../include/clock_module.h"
 
-#include <unistd.h>
-
 #include <string>
 
 ClockModule::ClockModule(int node_id, JsonParam option) {
@@ -52,8 +50,9 @@ int ClockModule::process(Task &task) {
     } else if (now - lst_ts_ < tick_) {
         // Can be 10us quicker, in order to decrease delay.
         auto sleep_time = (tick_ - (now - lst_ts_)).count() / 1000 - 10;
-        if (sleep_time > 0)
-            usleep(sleep_time);
+        if (sleep_time > 0) {
+            std::this_thread::sleep_for(std::chrono::microseconds(sleep_time));
+        }
     }
 
     lst_ts_ += tick_;

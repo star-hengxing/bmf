@@ -12,7 +12,6 @@
  * Lesser General Public License for more details.
  */
 
-#include <unistd.h>
 #include "ffmpeg_decoder.h"
 #include <string>
 #include <cstddef>
@@ -2479,7 +2478,7 @@ int CFFDecoder::process(Task &task) {
         av_init_packet(&pkt);
         ret = av_read_frame(input_fmt_ctx_, &pkt);
         if (ret == AVERROR(EAGAIN)) {
-            usleep(10000);
+            std::this_thread::sleep_for(std::chrono::microseconds(10000));
             continue;
         }
         if (ret < 0) {

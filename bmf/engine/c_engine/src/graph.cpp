@@ -27,8 +27,6 @@
 #include <iomanip>
 #include <iostream>
 
-#include <unistd.h>
-
 BEGIN_BMF_ENGINE_NS
 USE_BMF_SDK_NS
 std::vector<Graph *> g_ptr;
@@ -869,7 +867,7 @@ int Graph::add_input_stream_packet(std::string const &stream_name,
             while (input_streams_[stream_name]
                        ->manager_->any_of_downstream_full()) {
                 {
-                    usleep(1000);
+                    std::this_thread::sleep_for(std::chrono::microseconds(1000));
                 }
             }
         }
@@ -906,7 +904,7 @@ void Graph::pause_running(double_t timeout) {
     paused_ = true;
     if (timeout > 0) {
         auto f = [](Graph *g, int timout) {
-            usleep(timout);
+            std::this_thread::sleep_for(std::chrono::microseconds(timout));
             g->resume_running();
         };
         std::thread(f, this, timeout * 1000);

@@ -84,7 +84,7 @@ void thread_decode(std::shared_ptr<PythonModule> decoder_module2) {
     PyGILState_STATE gstate;
     gstate = PyGILState_Ensure();
     boost::python::object python_file = boost::python::import("timestamp");
-    sleep(1);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
     //    PyGILState_Release(gstate);
     //    sleep(10);
     //    gstate = PyGILState_Ensure();
@@ -123,7 +123,7 @@ void thread_decode(std::shared_ptr<PythonModule> decoder_module2) {
 }
 
 void test() {
-    sleep(3);
+    std::this_thread::sleep_for(std::chrono::milliseconds(3));
     boost::python::object python_file = boost::python::import("packet");
     boost::python::object packet = python_file.attr("Packet")();
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 #include "builder.hpp"
-#include <unistd.h>
+
 #include "nlohmann/json.hpp"
 
 #include "cpp_test_helper.h"

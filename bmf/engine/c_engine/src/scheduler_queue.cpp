@@ -20,7 +20,7 @@
 #include <bmf/sdk/trace.h>
 #include <bmf/sdk/log.h>
 
-#include <unistd.h>
+
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -132,15 +132,18 @@ int SchedulerQueue::exec_loop() {
 void SchedulerQueue::internal_pause() {
     paused_state_ = state_;
     state_ = State::PAUSED;
-    while (paused_)
-        usleep(1000);
+    while (paused_) {
+        std::this_thread::sleep_for(std::chrono::microseconds(1000));
+    }
 }
 
 void SchedulerQueue::pause() {
     paused_ = true;
-    if (state_ == State::RUNNING)
-        while (state_ != State::PAUSED)
-            usleep(1000);
+    if (state_ == State::RUNNING) {
+        while (state_ != State::PAUSED) {
+            std::this_thread::sleep_for(std::chrono::microseconds(1000));
+        }
+    }
 }
 
 void SchedulerQueue::resume() {

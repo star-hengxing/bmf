@@ -12,7 +12,7 @@
  * Lesser General Public License for more details.
  */
 
-#include <unistd.h>
+
 #include "go_mock_decoder.h"
 #include <bmf/sdk/bmf_av_packet.h>
 #include <bmf/sdk/log.h>
@@ -38,7 +38,7 @@ int GoMockDecoder::process(Task &task) {
             << packet.timestamp() << "data type:" << packet.type_info().name;
         task.fill_output_packet(output_queue.first, packet);
 
-        sleep(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
         if (number_ == 10) {
             task.fill_output_packet(output_queue.first,
                                     Packet::generate_eof_packet());

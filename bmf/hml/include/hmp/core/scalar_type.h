@@ -19,6 +19,8 @@
 #include <stdint.h>
 #include <hmp/core/half.h>
 
+#include <fmt/format.h>
+
 namespace hmp {
 
 #define HMP_FORALL_SCALAR_TYPES(_)                                             \
@@ -116,3 +118,11 @@ static inline std::string stringfy(ScalarType scalar_type) {
 }
 
 } // namespace hmp
+
+template <>
+struct fmt::formatter<hmp::ScalarType> : formatter<std::string> {
+    auto format(hmp::ScalarType s, format_context& ctx) const
+        -> format_context::iterator {
+        return formatter<std::string>::format(hmp::stringfy(s), ctx);
+    }
+};

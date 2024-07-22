@@ -59,8 +59,7 @@ ScalarType to_scalar_type(const DLDataType &dtype) {
             stype = ScalarType::UInt16;
             break;
         default:
-            HMP_REQUIRE(false,
-                        "Unsupported kUInt bits " + std::to_string(dtype.bits));
+            HMP_REQUIRE(false, "Unsupported kUInt bits {}", dtype.bits);
         }
         break;
     case DLDataTypeCode::kDLInt:
@@ -78,8 +77,7 @@ ScalarType to_scalar_type(const DLDataType &dtype) {
             stype = ScalarType::Int64;
             break;
         default:
-            HMP_REQUIRE(false,
-                        "Unsupported kInt bits " + std::to_string(dtype.bits));
+            HMP_REQUIRE(false, "Unsupported kInt bits {}", dtype.bits);
         }
         break;
     case DLDataTypeCode::kDLFloat:
@@ -94,12 +92,11 @@ ScalarType to_scalar_type(const DLDataType &dtype) {
             stype = ScalarType::Float64;
             break;
         default:
-            HMP_REQUIRE(false, "Unsupported kFloat bits " +
-                                   std::to_string(dtype.bits));
+            HMP_REQUIRE(false, "Unsupported kFloat bits {}", dtype.bits);
         }
         break;
     default:
-        HMP_REQUIRE(false, "Unsupported code " + std::to_string(dtype.code));
+        HMP_REQUIRE(false, "Unsupported code {}", dtype.code);
     }
     return stype;
 }
@@ -115,8 +112,7 @@ static DLDevice get_dl_device(const Tensor &tensor, const int64_t &device_id) {
         ctx.device_type = DLDeviceType::kDLCUDA;
         break;
     default:
-        HMP_REQUIRE(false,
-                    "Cannot pack tensors on " + stringfy(tensor.device()));
+        HMP_REQUIRE(false, "Cannot pack tensors on {}", tensor.device());
     }
     return ctx;
 }
@@ -130,8 +126,7 @@ static Device get_hmp_device(const DLDevice &ctx) {
         return Device(DeviceType::CUDA, ctx.device_id);
 #endif
     default:
-        HMP_REQUIRE(false, "Unsupported device_type: " +
-                               std::to_string(ctx.device_type));
+        HMP_REQUIRE(false, "Unsupported device_type: {}", static_cast<int32_t>(ctx.device_type));
     }
 }
 

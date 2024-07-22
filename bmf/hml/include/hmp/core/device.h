@@ -20,6 +20,8 @@
 #include <hmp/core/optional.h>
 #include <hmp/core/macros.h>
 
+#include <fmt/format.h>
+
 namespace hmp {
 
 class HMP_API Device {
@@ -107,3 +109,35 @@ HMP_API void registerDeviceManager(DeviceType dtype, DeviceManager *dm);
 } // namespace impl
 
 } // namespace hmp
+
+template <>
+struct fmt::formatter<hmp::Device> : formatter<std::string> {
+    auto format(hmp::Device device, format_context& ctx) const
+        -> format_context::iterator {
+        std::string name;
+        if (device.type() == hmp::kCPU) {
+            name = "cpu";
+        } else if (device.type() == hmp::kCUDA) {
+            name = fmt::format("cuda:{}", device.index());
+        } else {
+            name = "InvalidDevice";
+        }
+        return formatter<std::string>::format(name, ctx);
+    }
+};
+
+template <>
+struct fmt::formatter<hmp::Device::Type> : formatter<std::string_view> {
+    auto format(hmp::Device::Type type, format_context& ctx) const
+        -> format_context::iterator {
+        std::string_view name;
+        if (type == hmp::kCPU) {
+            name = "kCPU";
+        } else if (type == hmp::kCUDA) {
+            name = "kCUDA";
+        } else {
+            name = "UnknownDeviceType";
+        }
+        return formatter<std::string_view>::format(name, ctx);
+    }
+};

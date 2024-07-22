@@ -19,6 +19,8 @@
 #include <bmf/sdk/hmp_import.h>
 #include <bmf/sdk/rational.h>
 
+#include <fmt/format.h>
+
 namespace bmf_sdk {
 
 using OpaqueData = std::shared_ptr<const void>;
@@ -248,3 +250,11 @@ class BMF_SDK_API Future {
 };
 
 } // namespace bmf_sdk
+
+template <>
+struct fmt::formatter<bmf_sdk::OpaqueDataKey::Key> : formatter<int> {
+    auto format(bmf_sdk::OpaqueDataKey::Key key, format_context& ctx) const
+        -> format_context::iterator {
+        return formatter<int>::format(key, ctx);
+    }
+};

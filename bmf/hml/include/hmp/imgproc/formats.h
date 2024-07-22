@@ -18,6 +18,8 @@
 #include <stdint.h>
 #include <hmp/core/scalar_type.h>
 
+#include <fmt/format.h>
+
 namespace hmp {
 
 enum ColorPrimaries {
@@ -144,6 +146,11 @@ enum PixelFormat {
 
 HMP_API std::string stringfy(const PixelFormat &format);
 PixelFormat HMP_API get_pixel_format(std::string pixfmt);
+
+static inline auto format_as(ColorSpace v) { return fmt::underlying(v); }
+static inline auto format_as(ColorRange v) { return fmt::underlying(v); }
+static inline auto format_as(ColorPrimaries v) { return fmt::underlying(v); }
+static inline auto format_as(ColorTransferCharacteristic v) { return fmt::underlying(v); }
 
 class HMP_API ColorModel {
   public:
@@ -302,3 +309,27 @@ const static RGBFormat kRGB = RGBFormat::RGB;
 const static RGBFormat kBGR = RGBFormat::BGR;
 
 } // namespace hmp
+
+template <>
+struct fmt::formatter<hmp::PixelFormat> : formatter<std::string> {
+    auto format(hmp::PixelFormat format, format_context& ctx) const
+        -> format_context::iterator {
+        return formatter<std::string>::format(hmp::stringfy(format), ctx);
+    }
+};
+
+template <>
+struct fmt::formatter<hmp::ChannelFormat> : formatter<std::string> {
+    auto format(hmp::ChannelFormat format, format_context& ctx) const
+        -> format_context::iterator {
+        return formatter<std::string>::format(hmp::stringfy(format), ctx);
+    }
+};
+
+template <>
+struct fmt::formatter<hmp::ImageFilterMode> : formatter<std::string> {
+    auto format(hmp::ImageFilterMode mode, format_context& ctx) const
+        -> format_context::iterator {
+        return formatter<std::string>::format(hmp::stringfy(mode), ctx);
+    }
+};

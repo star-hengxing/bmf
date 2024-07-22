@@ -18,6 +18,8 @@
 #include <hmp/imgproc/image.h>
 #include <kernel/dispatch_stub.h>
 
+#include <fmt/format.h>
+
 namespace hmp {
 
 // https://chromium.googlesource.com/libyuv/libyuv/+/master/docs/formats.md
@@ -171,3 +173,11 @@ Tensor &img_warp_perspective(Tensor &dst, const Tensor &src, const Tensor &M,
                              ChannelFormat cformat = kNCHW);
 } // namespace kernel
 } // namespace hmp
+
+template <>
+struct fmt::formatter<hmp::PPixelFormat> : formatter<std::string> {
+    auto format(hmp::PPixelFormat format, format_context& ctx) const
+        -> format_context::iterator {
+        return formatter<std::string>::format(hmp::stringfy(format), ctx);
+    }
+};

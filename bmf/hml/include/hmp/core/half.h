@@ -24,6 +24,8 @@
 #include <cuda_fp16.h>
 #endif
 
+#include <fmt/format.h>
+
 namespace hmp {
 
 // from: https://github.com/pytorch/pytorch/blob/master/c10/util/Half.h
@@ -334,3 +336,11 @@ template <> class numeric_limits<hmp::Half> {
 };
 
 } // namespace std
+
+template <>
+struct fmt::formatter<hmp::Half> : formatter<unsigned short> {
+    auto format(hmp::Half h, format_context& ctx) const
+        -> format_context::iterator {
+        return formatter<unsigned short>::format(h.x, ctx);
+    }
+};

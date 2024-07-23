@@ -26,6 +26,7 @@ option(HMP_ENABLE_TORCH "Enable Troch support" ON)
 option(HMP_ENABLE_PYTHON "Enable Python support" ON)
 option(HMP_ENABLE_JNI "Enable build with JNI support" ON)
 option(HMP_ENABLE_MOBILE "Enable build for mobile device" OFF)
+option(HMP_ENABLE_PERF "Build perf" OFF)
 
 if (HMP_ENABLE_CUDA)
     # For FindCUDAToolkit support
@@ -78,7 +79,7 @@ if(HMP_ENABLE_JNI)
     add_subdirectory(java)
 endif()
 
-if(NOT HMP_ENABLE_MOBILE AND NOT WIN32)
+if(HMP_ENABLE_PERF)
     add_subdirectory(perf)
 endif()
 

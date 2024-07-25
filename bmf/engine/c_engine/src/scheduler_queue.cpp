@@ -20,6 +20,8 @@
 #include <bmf/sdk/trace.h>
 #include <bmf/sdk/log.h>
 
+#include <thread>
+#include <chrono>
 
 
 #ifdef _WIN32

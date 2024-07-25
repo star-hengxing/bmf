@@ -26,6 +26,8 @@
 #include <csignal>
 #include <iomanip>
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 BEGIN_BMF_ENGINE_NS
 USE_BMF_SDK_NS

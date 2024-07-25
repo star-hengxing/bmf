@@ -21,6 +21,7 @@
 #include <hmp/tensor.h>
 #include <map>
 #include <thread>
+#include <chrono>
 #include <gtest/gtest.h>
 #include <hmp/core/ref_ptr.h>
 

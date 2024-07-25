@@ -21,6 +21,9 @@
 
 #include <bmf/sdk/trace.h>
 
+#include <thread>
+#include <chrono>
+
 BEGIN_BMF_ENGINE_NS
 USE_BMF_SDK_NS
 

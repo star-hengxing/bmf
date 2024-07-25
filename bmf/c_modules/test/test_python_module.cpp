@@ -16,6 +16,8 @@
 #include "python_module.h"
 #include <fstream>
 #include <istream>
+#include <thread>
+#include <chrono>
 
 USE_BMF_SDK_NS
 

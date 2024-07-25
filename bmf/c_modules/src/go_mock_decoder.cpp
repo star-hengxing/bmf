@@ -17,6 +17,9 @@
 #include <bmf/sdk/bmf_av_packet.h>
 #include <bmf/sdk/log.h>
 
+#include <thread>
+#include <chrono>
+
 GoMockDecoder::GoMockDecoder(int node_id, JsonParam json_param)
     : Module(node_id, json_param) {
     BMFLOG_NODE(BMF_INFO, node_id_) << "init";

@@ -16,6 +16,8 @@
 #include "../include/clock_module.h"
 
 #include <string>
+#include <thread>
+#include <chrono>
 
 ClockModule::ClockModule(int node_id, JsonParam option) {
     int32_t fps = 25;

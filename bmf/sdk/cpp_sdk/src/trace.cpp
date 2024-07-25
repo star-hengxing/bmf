@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+#include <thread>
+#include <chrono>
+
 #include <bmf/sdk/trace.h>
 
 #include <nlohmann/json.hpp>

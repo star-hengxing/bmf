@@ -20,6 +20,8 @@
 #include "gtest/gtest.h"
 
 #include <fstream>
+#include <thread>
+#include <chrono>
 
 USE_BMF_ENGINE_NS
 USE_BMF_SDK_NS

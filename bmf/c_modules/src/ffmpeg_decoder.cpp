@@ -15,6 +15,8 @@
 #include "ffmpeg_decoder.h"
 #include <string>
 #include <cstddef>
+#include <thread>
+#include <chrono>
 #include <bmf/sdk/video_frame.h>
 #include <bmf/sdk/audio_frame.h>
 #include <bmf/sdk/ffmpeg_helper.h>

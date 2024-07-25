@@ -15,6 +15,9 @@
 #include "mock_decoder.h"
 #include <bmf/sdk/log.h>
 
+#include <thread>
+#include <chrono>
+
 MockDecoder::MockDecoder(int node_id, JsonParam json_param)
     : Module(node_id, json_param) {
     BMFLOG_NODE(BMF_INFO, node_id_) << "init";
